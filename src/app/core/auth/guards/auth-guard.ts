@@ -11,6 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   }
   //if token does not exist, redirect to login page
+  
   else{
     return routerService.parseUrl('/login');
   }
