@@ -1,0 +1,94 @@
+<div class="bg-gray-100 min-h-screen p-6">
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow p-6">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-xl font-semibold">Notifications</h2>
+                <p class="text-sm text-gray-500">
+                    Realtime updates for likes, comments, shares, and follows.
+                </p>
+            </div>
+
+            <button (click)="markAllAsRead()"
+                class="cursor-pointer flex items-center gap-2 px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">
+                ✔ Mark all as read
+            </button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-6">
+
+            <button [ngClass]="{
+                'bg-blue-600': activeTab === 'All',
+                'bg-gray-200': activeTab === 'Unread'
+            }" class="px-4 py-1.5 rounded-full  text-white text-sm" (click)="setTab('All')">
+                All
+            </button>
+
+            <button (click)="setTab('Unread')" [ngClass]="{
+                'bg-blue-600': activeTab === 'Unread',
+                'bg-gray-200': activeTab === 'All'
+            }" class="px-4 py-1.5 rounded-full bg-gray-200 text-gray-700 text-sm flex items-center gap-2">
+                Unread
+                <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full">
+                    {{unReadNotifications.length}}
+                </span>
+            </button>
+        </div>
+
+        <!-- Notifications List -->
+        <div class="space-y-4">
+
+            @if(activeTab === 'All'){
+            @for (notification of allNotifications; track notification._id) {
+            <!-- Item -->
+            <div [routerLink]="['/details', notification.entityId]"
+                class="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-xl p-4 hover:bg-blue-100 transition">
+                <div class="flex items-center gap-4">
+                    <img [src]="notification.actor.photo" class="w-10 h-10 rounded-full object-cover" />
+
+                    <div>
+                        <p class="text-sm">
+                            <span class="font-semibold">{{notification.actor.name}}</span>
+                            <span class="text-gray-600">{{notification.type}}</span>
+                        </p>
+
+                        <button (click)="markNotificationAsRead(notification._id)"
+                            class="mt-2 text-xs px-3 py-1 border rounded-md text-blue-600 border-blue-200 hover:bg-white">
+                            ✔ Mark as read
+                        </button>
+                    </div>
+                </div>
+
+                <span class="text-xs text-gray-400">{{notification.createdAt}}</span>
+            </div>
+            }
+            }
+
+            @else if(activeTab === 'Unread'){
+            @for (notification of unReadNotifications; track notification._id) {
+            <!-- Item -->
+            <div
+                class="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-xl p-4 hover:bg-blue-100 transition">
+
+                <div class="flex items-center gap-4">
+                    <img [src]="notification.actor.photo" class="w-10 h-10 rounded-full object-cover" />
+
+                    <div>
+                        <p class="text-sm">
+                            <span class="font-semibold">{{notification.actor.name}}</span>
+                            <span class="text-gray-600">{{notification.type}}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <span class="text-xs text-gray-400">{{notification.createdAt}}</span>
+            </div>
+            }@empty {
+                <p>No unread notifications yet.</p>
+            }
+            }
+        </div>
+    </div>
+</div>

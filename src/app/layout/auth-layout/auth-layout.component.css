@@ -1,0 +1,18 @@
+.auth-cover {
+    background-image: url('/auth-imageavif.avif');
+    background-size: cover;
+    background-position: center;
+    position: relative; /* required */
+}
+
+.auth-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0; 
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.auth-cover > * {
+    position: relative;
+    z-index: 1;
+}

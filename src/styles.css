@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+@import 'ngx-toastr/toastr';
+
+@font-face {
+    font-family: 'SnPro';
+    src: url('/fonts/SNPro-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    /*variable range*/
+    font-style: normal;
+}
+
+@utility container {
+    margin-inline: auto;
+}
+
+@layer components {
+    .stat-card {
+        @apply bg-slate-50 border border-slate-200 rounded-xl p-4 text-center;
+    }
+
+    .stat-card p {
+        @apply text-xs text-gray-500 uppercase;
+    }
+
+    .stat-card h3 {
+        @apply text-xl font-bold text-gray-900 mt-1;
+    }
+
+    .small-card {
+        @apply bg-slate-50 border border-slate-200 rounded-xl p-4;
+    }
+
+    .small-card p {
+        @apply text-xs text-gray-500 uppercase;
+    }
+
+    .small-card h3 {
+        @apply text-xl font-bold text-gray-900 mt-1;
+    }
+
+    .tab {
+        @apply px-4 py-2 text-gray-600 font-medium rounded-lg hover:bg-slate-100;
+    }
+
+    .tab-active {
+        @apply px-4 py-2 bg-blue-100 text-blue-600 font-semibold rounded-lg;
+    }
+}
+
+@theme {
+    --color-mainColor: #00298D;
+    --color-secondaryColor: #F0F2F5;
+    --color-skyColor: #71EDFD;
+}
+
+body {
+    background-color: var(--color-secondaryColor);
+    font-family: 'SnPro', sans-serif;
+}
